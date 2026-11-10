@@ -1,0 +1,12 @@
+[package]
+name = "ct-uint"
+version = "0.0.1"
+edition = "2024"
+description = "Constant-time fixed-width big integers and limb arithmetic for secret-data cryptography"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/tecposter/ct-uint"
+readme = "README.md"
+keywords = ["constant-time", "bigint", "limb", "cryptography"]
+categories = ["cryptography"]
+
+[dependencies]
