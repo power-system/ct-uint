@@ -2,6 +2,7 @@ use crate::limb::Limb;
 use crate::uint::Uint;
 
 impl<const LIMBS: usize> Uint<LIMBS> {
+    #[inline]
     pub fn from_le_bytes(bytes: &[u8]) -> Option<Self> {
         if bytes.len() != LIMBS * 8 {
             return None;
@@ -21,6 +22,7 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         Some(Self::from_limbs(out))
     }
 
+    #[inline]
     pub fn from_be_bytes(bytes: &[u8]) -> Option<Self> {
         if bytes.len() != LIMBS * 8 {
             return None;
@@ -41,6 +43,7 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         Some(Self::from_limbs(out))
     }
 
+    #[inline]
     pub fn write_le_bytes(&self, out: &mut [u8]) {
         assert_eq!(out.len(), LIMBS * 8);
         let limbs = self.limbs();
@@ -56,6 +59,7 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         }
     }
 
+    #[inline]
     pub fn write_be_bytes(&self, out: &mut [u8]) {
         assert_eq!(out.len(), LIMBS * 8);
         let limbs = self.limbs();

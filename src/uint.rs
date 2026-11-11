@@ -14,7 +14,7 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         Self(limbs)
     };
 
-    #[inline]
+    #[inline(always)]
     pub const fn from_u64(v: u64) -> Self {
         let mut limbs = [Limb::ZERO; LIMBS];
         if LIMBS >= 1 {
@@ -34,7 +34,7 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         Some(self.0[0].to_u64())
     }
 
-    #[inline]
+    #[inline(always)]
     pub fn checked_add(&self, rhs: &Self) -> (Self, Choice) {
         let mut out = [Limb::ZERO; LIMBS];
         let mut carry = Limb::ZERO;
@@ -48,12 +48,12 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         (Self(out), carry.ct_eq(&Limb::ONE))
     }
 
-    #[inline]
+    #[inline(always)]
     pub fn wrapping_add(&self, rhs: &Self) -> Self {
         self.checked_add(rhs).0
     }
 
-    #[inline]
+    #[inline(always)]
     pub fn checked_sub(&self, rhs: &Self) -> (Self, Choice) {
         let mut out = [Limb::ZERO; LIMBS];
         let mut borrow = Limb::ZERO;
@@ -67,11 +67,12 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         (Self(out), borrow.ct_eq(&Limb::ONE))
     }
 
-    #[inline]
+    #[inline(always)]
     pub fn wrapping_sub(&self, rhs: &Self) -> Self {
         self.checked_sub(rhs).0
     }
 
+    #[inline]
     pub fn widening_mul(&self, rhs: &Self) -> (Self, Self) {
         let mut lo = [Limb::ZERO; LIMBS];
         let mut hi = [Limb::ZERO; LIMBS];
@@ -104,19 +105,19 @@ impl<const LIMBS: usize> Uint<LIMBS> {
         (Self(lo), Self(hi))
     }
 
-    #[inline]
+    #[inline(always)]
     pub(crate) fn limbs(&self) -> &[Limb; LIMBS] {
         &self.0
     }
 
-    #[inline]
+    #[inline(always)]
     pub(crate) const fn from_limbs(limbs: [Limb; LIMBS]) -> Self {
         Self(limbs)
     }
 }
 
 impl<const LIMBS: usize> Default for Uint<LIMBS> {
-    #[inline]
+    #[inline(always)]
     fn default() -> Self {
         Self::ZERO
     }
@@ -124,6 +125,7 @@ impl<const LIMBS: usize> Default for Uint<LIMBS> {
 
 #[cfg(feature = "zeroize")]
 impl<const LIMBS: usize> zeroize::Zeroize for Uint<LIMBS> {
+    #[inline(always)]
     fn zeroize(&mut self) {
         for limb in self.0.iter_mut() {
             limb.zeroize();
