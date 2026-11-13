@@ -106,12 +106,12 @@ impl<const LIMBS: usize> Uint<LIMBS> {
     }
 
     #[inline(always)]
-    pub(crate) fn limbs(&self) -> &[Limb; LIMBS] {
+    pub fn limbs(&self) -> &[Limb; LIMBS] {
         &self.0
     }
 
     #[inline(always)]
-    pub(crate) const fn from_limbs(limbs: [Limb; LIMBS]) -> Self {
+    pub const fn from_limbs(limbs: [Limb; LIMBS]) -> Self {
         Self(limbs)
     }
 }
